@@ -9,7 +9,7 @@
 # Arduino(DRT) -> GPI17(Rpi2)
 apt-get install arduino-mk
 
-# Create a package "robojoy" with dependencies
+# Create a package "robojoy" with dependencies ("robojoy" is what you git clone from this repo)
 catkin_create_pkg robojoy std_msgs rospy roscpp joy teleop_twist_joy rosserial_python
 
 

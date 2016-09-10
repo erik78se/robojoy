@@ -52,3 +52,7 @@ CATKIN_IGNORE
 *.hex
 
 /arduino/.*\.d$
+/arduino/build-pro328/arduino.elf
+/arduino/build-pro328/arduino.hex.sizeok
+/arduino/build-pro328/libcore.a
+

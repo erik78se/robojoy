@@ -50,3 +50,5 @@ CATKIN_IGNORE
 # object and hex
 *.o
 *.hex
+
+/arduino/.*\.d$

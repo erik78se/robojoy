@@ -27,6 +27,11 @@ roscore -v
 # On joystick node
 rosrun joy joy_node
 
+# Potentially change joystick device: 
+
+rosparam set /joy_node/dev /dev/input/js1
+
+
 # On joystick node
 rosrun teleop_twist_joy teleop_node
 

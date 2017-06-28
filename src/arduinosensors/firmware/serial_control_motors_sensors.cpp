@@ -1,8 +1,39 @@
-/* Same as: serial_control_2_motors_pwm.ino
-
-* But added front and back IR sensor: IR-sensor-SG035-SZ
-  to be able to detect collission
-
+/* serial_control_2_motors_pwm.ino:
+ *
+ *  This code implements a motor control for a simple
+ *  ROS robot, connected to a arduino via serial interface, and 2 DC motors(PWM).
+ *  The wheels is ideally tracks.
+ *
+ *  To test it, you could use a USB joystick.
+ *
+ * Get 3 ROS packages/nodes to work first:
+ * (joy/joy_node)
+ * (rosserial_python/serial_node.py)
+ * (teleop_twist_joy/teleop_node)
+ *
+ *  Test that Twist messages appear on the /cmd_vel topic
+ *
+ *  The principle is that
+ *
+ *  I)   <Twist> messages are published on /cmd_vel
+ *  II)  The arduino subscribes to /cmd_vel
+ *  III) Arduino translates the Twist message into
+ *  IV)  PWM speed for left and right motors.
+ *
+ *  Make sure that the arduino code is compiled with the same version
+ *  of "rosserial_python", or you might get protocol errors like:
+ *  [ERROR] [WallTime: 1463602684.416179] Mismatched protocol version in packet:
+ *  lost sync or rosserial_python is from different ros release than the rosserial client
+ *
+ *  Below is a "launch" file for ROS that shows the stack you need to get it running.
+ *
+ *  <launch>
+ *  <node name="joy1" pkg="joy" type="joy_node" />
+ *  <node name="teleoptwistjoy1" pkg="teleop_twist_joy" type="teleop_node" />
+ *  <node name="serialcommjoy1" pkg="rosserial_python" type="serial_node.py" args="/dev/ttyAMA0"/>
+ *  </launch>
+ *
+ *
 */
 #include <ros.h>
 #include <geometry_msgs/Twist.h>
@@ -12,16 +43,16 @@
 #define ROS_SERIAL_BAUD_RATE 57600
 
 // MOTORS
-#define E1 10   // Enable Pin for motor 1
-#define E2 6    // Enable Pin for motor 2
-#define I1 3    // Control pin 1 for motor 1
-#define I2 5    // Control pin 2 for motor 1
-#define I3 9    // Control pin 1 for motor 2
-#define I4 11   // Control pin 2 for motor 2
+#define E1 9   // Enable Pin for motor 1
+#define E2 10    // Enable Pin for motor 2
 #define FRONT_IR 12  //Collission front pin
 #define BACK_IR  4   //Collission back pin
 
 
+#define FORWARD1 digitalWrite(12, HIGH);
+#define REVERSE1 digitalWrite(12, LOW);
+#define FORWARD2 PORTE |= 0x04;
+#define REVERSE2 PORTE &= 0xFB;
 ros::NodeHandle nh;
 
 geometry_msgs::Twist twist_msg;
@@ -46,18 +77,14 @@ void MotorSpeeds(float left, float right) {
   // Motor direction is determined based on the sign of the left,right values
   // Set direction of the motors based on the sign of the speed
   if ( left >= 0 ) {
-    digitalWrite(I1, HIGH);
-    digitalWrite(I2, LOW);
+    FORWARD1;
   } else {
-    digitalWrite(I1, LOW);
-    digitalWrite(I2, HIGH);
+    REVERSE1;
   }
   if ( right >= 0 ) {
-    digitalWrite(I3, HIGH);
-    digitalWrite(I4, LOW);
+    FORWARD2;
   } else {
-    digitalWrite(I3, LOW);
-    digitalWrite(I4, HIGH);
+     REVERSE2;
   }
 
 }
@@ -96,12 +123,8 @@ ros::Publisher back_ir("back_ir", &str_msg);
 void setupPins() {
   pinMode(E1, OUTPUT);
   pinMode(E2, OUTPUT);
-  pinMode(I1, OUTPUT);
-  pinMode(I2, OUTPUT);
-  pinMode(I3, OUTPUT);
-  pinMode(I4, OUTPUT);
-  pinMode(FRONT_IR, INPUT);
-  pinMode(BACK_IR, INPUT);
+  pinMode(12, OUTPUT); // Set 12 to output (motor1)
+  DDRE |= 0x04; // Set PE2 to output (motor2)
 }
 
 void setup() {

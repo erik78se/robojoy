@@ -7,7 +7,7 @@ add_definitions(-DUSB_CON)
 
 generate_arduino_firmware(sensors
   SRCS serial_control_motors_sensors.cpp ${ROS_LIB_DIR}/time.cpp
-  BOARD pro328
+  BOARD leonardo
   PORT /dev/ttyACM0
 )
 

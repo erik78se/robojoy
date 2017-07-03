@@ -19,7 +19,7 @@ At this point, we dont cover more on the ROS side. We assume you have:
 # Get the catkin workspace 
 Cloning this repo into catkin_ws
 ```
-cd ~
+$ cd ~
 $ git clone https://github.com/erik78se/robojoy catkin_ws
 ```
 For your information, the workspace you just coloned contains a ROS package and come adruino code. The ROS package was created like this if you like to try on your own:
@@ -38,29 +38,52 @@ $ source catkin_ws/devel/setup.sh
 $ cd catkin_ws/arduino/
 $ make upload
 ```
+The code should now be automatically uploaded to your arduino via the serial interface. This may or may not work for your setup. Dont worry. You can load the arduino code by any means favoured by you as long as the serial communication works between the RPi and the arduino at later stage.
 
-# On master
-roscore -v
+# Checkpoint 1.
+Before moving on, you should now have:
+ - Installed ROS on your Rpi
+ - Verified your joystick works and have the device name (like: /dev/input/js1)
+ - Verified the serial communication between the RPi and the arduino device (like /dev/ttyAMA0).
+ - Successfully uploaded the ardunio code to your arduino/MCU
 
-# On joystick node
-rosrun joy joy_node
+# Testing the joystick (manually) with ROS
 
-# Potentially change joystick device: 
+### Start master
+```
+$ roscore -v
+```
+#### Start joystick node
+Responsible for communication with the joystick
+```
+$ rosparam set /joy_node/dev /dev/input/js1
+$ rosrun joy joy_node
+```
 
-rosparam set /joy_node/dev /dev/input/js1
+### Start teleop_twist_joy node
+Responsible for converting joystick commands to 'Twist' messages used by ROS and put them on the /cmd_vel topic.
+```
+$ rosrun teleop_twist_joy teleop_node
+```
+### Test to see twist messaged on /cmd_vel topic
+```
+$ rostopic echo /cmd_vel
+```
+Press buttons on your joystick (you might need to hold and press an "enable" button on your joystick to see anything happen with you turn the sticks in the joystick.
 
+### Start the rosserial_python node
+This node is responsible to send the communication (Twist messages) to the ardunio
+```
+$ rosrun rosserial_python serial_node.py /dev/ttyAMA0
+```
 
-# On joystick node
-rosrun teleop_twist_joy teleop_node
+### The ROS way. Use the launchfile
+All of the above manual steps can be done via ".launch files". 
 
-# Test to see twist messaged on /cmd_vel topic
-rostopic echo /cmd_vel
-
-# On the arduino serial connected node
-rosrun rosserial_python serial_node.py /dev/ttyAMA0
-
-# Alternative, use the launchfile
-
-# Enable programming the Arduino-mini-pro from Serial
-# Arduino(DRT) -> GPI17(Rpi2)
-apt-get install arduino-mk
+# Ardunio extra (not part of this excersise): 
+To enable programming to an Arduino-mini-pro from Serial
+> Wire connect: arduino(DRT) -> RPi(GPIO #17)
+``` 
+$ apt-get install arduino-mk
+```
+Then make upload might work

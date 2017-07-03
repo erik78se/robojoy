@@ -3,24 +3,31 @@
 # as a pretended volume-control or similar
 #
 # The required python lib: Adafruit_PWM_Servo_Driver
-
+from __future__ import division
+import time
 import curses
-from Adafruit_PWM_Servo_Driver import PWM
 
-# Initialise the PWM device using the default address
-pwm = PWM(0x40, debug=False)
+# Import the PCA9685 module.
+import Adafruit_PCA9685
+
+# Uncomment to enable debug output.
+#import logging
+#logging.basicConfig(level=logging.DEBUG)
+
+# Initialise the PCA9685 using the default address (0x40).
+pwm = Adafruit_PCA9685.PCA9685()
 
 servoMin = 150  # Min pulse length out of 4096
 servoMax = 600  # Max pulse length out of 4096
 maxDegree = 60 # Degrees your servo can rotate
 degIncrease = 2 # Number of degrees to increase by each time
 
-pwm.setPWMFreq(60) # Set PWM frequency to 60Hz
+pwm.set_pwm_freq(60) # Set PWM frequency to 60Hz
 
 def setDegree(channel, d):
     degreePulse = servoMin
     degreePulse += int((servoMax - servoMin) / maxDegree) * d
-    pwm.setPWM(channel, 0, degreePulse)
+    pwm.set_pwm(channel, 0, degreePulse)
 
 # Set up curses for arrow input
 scr = curses.initscr()

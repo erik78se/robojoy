@@ -40,7 +40,7 @@ $ make upload
 ```
 The code should now be automatically uploaded to your arduino via the serial interface. This may or may not work for your setup. Dont worry. You can load the arduino code by any means favoured by you as long as the serial communication works between the RPi and the arduino at later stage.
 
-# Checkpoint 1.
+# Checkpoint - Pause and reflect before moving on.
 Before moving on, you should now have:
  - Installed ROS on your Rpi
  - Verified your joystick works and have the device name (like: /dev/input/js1)

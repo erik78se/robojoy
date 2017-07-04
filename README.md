@@ -15,6 +15,7 @@ At this point, we dont cover more on the ROS side. We assume you have:
  - A working installation of ROS on your RPi.
  - You can communicate with the Arduino through the serial port on the RPi. 
  - You know what device the joystick has when you plug it into the USB port. Usually /dev/input/js1.
+ - You have at least rosserial_arduino, rosserial_msgs, rosserial_python packages installed. (https://github.com/ros-drivers/rosserial)
 
 # Get the catkin workspace 
 Cloning this repo into catkin_ws

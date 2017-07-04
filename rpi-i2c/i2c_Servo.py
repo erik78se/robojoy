@@ -19,7 +19,7 @@ pwm = Adafruit_PCA9685.PCA9685()
 
 servoMin = 150  # Min pulse length out of 4096
 servoMax = 600  # Max pulse length out of 4096
-maxDegree = 60 # Degrees your servo can rotate
+maxDegree = 180 # Degrees your servo can rotate
 degIncrease = 2 # Number of degrees to increase by each time
 
 pwm.set_pwm_freq(60) # Set PWM frequency to 60Hz

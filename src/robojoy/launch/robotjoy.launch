@@ -1,5 +1,9 @@
 <launch>
-  <node name="joy1" pkg="joy" type="joy_node" />
+  <node name="joy1" pkg="joy" type="joy_node"> 
+    <param name="dev" type="string" value="/dev/input/js0" />
+  </node>
   <node name="teleoptwistjoy1" pkg="teleop_twist_joy" type="teleop_node" />
+  <!-- 
   <node name="serialcommjoy1" pkg="rosserial_python" type="serial_node.py" args="/dev/ttyAMA0"/>
+  -->
 </launch>

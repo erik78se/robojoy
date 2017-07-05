@@ -15,7 +15,8 @@ At this point, we dont cover more on the ROS side. We assume you have:
  - A working installation of ROS on your RPi.
  - You can communicate with the Arduino through the serial port on the RPi. 
  - You know what device the joystick has when you plug it into the USB port. Usually /dev/input/js1.
- - You have at least rosserial_arduino, rosserial_msgs, rosserial_python packages installed. (https://github.com/ros-drivers/rosserial)
+ - You have rosserial_arduino, rosserial_msgs, rosserial_python packages installed. (https://github.com/ros-drivers/rosserial) 
+ - You have ROS joystick packages installed: joy & teleop_twist_joy
 
 # Get the catkin workspace 
 Cloning this repo into catkin_ws
@@ -31,6 +32,7 @@ For your information, the workspace you just coloned contains a ROS package and 
 $ cd catkin_ws
 $ catkin_make
 ```
+
 # Load arduino code onto the robot via serial interface
 First, make sure we use the libraries and code from our own workspace. Otherwise, it will use the ROS and OS installation libraries. The following will overload this.
 ```

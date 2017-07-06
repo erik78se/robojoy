@@ -1,21 +1,31 @@
 #!/usr/bin/python
-#
-# This code is part of a robot building workshop.
-# It assumed you have a MPU gyro/accelerometer (9DOF) connected
-# to the i2c bus on your RPi model 2+
-#
+
 # Code from: http://blog.bitify.co.uk/2013/11/reading-data-from-mpu-6050-on-raspberry.html
-#
-# You need to install python-smbus for this code to work aswell.
 # sudo apt install python-smbus 
-#
-#
+
 import smbus
 import math
 
 # Power management registers
 power_mgmt_1 = 0x6b
 power_mgmt_2 = 0x6c
+
+# Registers https://cdn.sparkfun.com/assets/learn_tutorials/5/5/0/MPU-9250-Register-Map.pdf
+ACCEL_XOUT_H = 0x3b
+ACCEL_XOUT_L = 0xc3
+ACCEL_YOUT_H = 0x3d
+ACCEL_YOUT_L = 0x3e
+ACCEL_ZOUT_H = 0x3f
+ACCEL_ZOUT_L = 0x40
+TEMP_OUT_H = 0x41
+TEMP_OUT_L = 0x42
+GYRO_XOUT_H = 0x43
+GYRO_XOUT_L = 0x44
+GYRO_YOUT_H = 0x45
+GYRO_YOUT_L = 0x46
+GYRO_ZOUT_H = 0x47
+GYRO_ZOUT_L = 0x48
+
 
 def read_byte(adr):
     return bus.read_byte_data(address, adr)
@@ -79,3 +89,12 @@ print "accel_zout: ", accel_zout, " scaled: ", accel_zout_scaled
 
 print "x rotation: " , get_x_rotation(accel_xout_scaled, accel_yout_scaled, accel_zout_scaled)
 print "y rotation: " , get_y_rotation(accel_xout_scaled, accel_yout_scaled, accel_zout_scaled)
+
+# Read temp
+print "temp"
+print "----"
+
+temp_out = read_word_2c(0x41)
+temp_out = (temp_out / 333.87) + 21.0
+print temp_out
+

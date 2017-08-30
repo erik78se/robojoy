@@ -121,6 +121,7 @@ ros::Publisher back_ir("back_ir", &str_msg);
 
 // Setup the pin numbers.
 void setupPins() {
+  delay(10000); // Uggly fix to avoid bootloop on RPi with the HAT
   pinMode(E1, OUTPUT);
   pinMode(E2, OUTPUT);
   pinMode(12, OUTPUT); // Set 12 to output (motor1)

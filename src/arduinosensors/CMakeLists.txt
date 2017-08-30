@@ -117,6 +117,8 @@ include_directories(
   ${catkin_INCLUDE_DIRS}
 )
 
+add_definitions(-DUSB_CON)
+
 rosserial_generate_ros_lib(
   PACKAGE rosserial_arduino
   SCRIPT make_libraries.py

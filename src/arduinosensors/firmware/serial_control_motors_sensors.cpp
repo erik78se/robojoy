@@ -70,8 +70,8 @@ void MotorSpeeds(float left, float right) {
   lspeed = left*255;
   rspeed = right*255;
   
-  analogWrite(E1, lspeed);  // Set left motor speed
-  analogWrite(E2, rspeed);  // Set right motor speed
+  analogWrite(E1, abs(lspeed));  // Set left motor speed
+  analogWrite(E2, abs(rspeed));  // Set right motor speed
 
 
   // Motor direction is determined based on the sign of the left,right values

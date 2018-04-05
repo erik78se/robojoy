@@ -2,33 +2,40 @@
   apt_repository:
     repo: deb http://packages.ros.org/ros/ubuntu xenial main
     state: present
+  become: yes
 
 - name: Add an apt key by id from a keyserver
   apt_key:
     keyserver: ha.pool.sks-keyservers.net
     id: 421C365BD9FF1F717815A3895523BAEEB01FA116
+  become: yes
 
 - name: Update cache
   apt:
     update_cache: yes
     cache_valid_time: 3600
+  become: yes
 
 - name: Upgrade packages
   apt:
     upgrade: dist
+  become: yes
 
 - name: Remove useless packages from the cache
   apt:
     autoclean: yes
+  become: yes
 
 - name: Remove dependencies that are no longer required
   apt:
     autoremove: yes
+  become: yes
 
 - name: Add robot user
   user:
     name: robot
     shell: /bin/bash
+  become: yes
 
 - name: Add ssh keys
   authorized_key:
@@ -38,6 +45,7 @@
   with_items:
     - HeMan
     - erik78se
+  become: yes
 
 - name: Download robojoy
   git:
@@ -56,3 +64,4 @@
     - ros-kinetic-joy-teleop
     - ros-kinetic-joy
     - ros-kinetic-rosserial-arduino
+  become: yes

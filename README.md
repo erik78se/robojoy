@@ -10,6 +10,13 @@ The repo contains basically two things:
  - A motor control HAT for the RPi. A-Star 32U4 RC LV/SV RPi Bridge	Put on top of the RPI (HAT), has microcontroller + everyting needed for micro-electronics	Interfaces 5V, has h-bridges for motors and AD for analog sensors
  - A USB joystick. We will use this to control robot (forward, backward, left & right).
 
+
+# Install dependencies with Ansible
+ - Add your ssh keys to your users to use for Ansible on all platforms and add sudo rules if needed.
+ - Edit inventory.ini to reflect your environment. You can have as many hosts as you like under [ros].
+ - Run `ansible-playbook -i inventory.ini site.yml`. This will add all dependencies and is potentially very slow (~30 min is not unusual). It will also add a user called 'robot' with ssh keys added.
+ - It checks out robojoy git repo under /home/robot/catkin_ws.
+
 # NOTE!
 At this point, we dont cover more on the ROS side. We assume you have:
  - A working installation of ROS on your RPi.

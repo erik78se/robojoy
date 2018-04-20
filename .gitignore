@@ -57,3 +57,5 @@ CATKIN_IGNORE
 /arduino/build-pro328/arduino.hex.sizeok
 /arduino/build-pro328/libcore.a
 
+devel/
+.catkin_workspace

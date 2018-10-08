@@ -1,3 +1,8 @@
+title: Robojoy - the robot that could
+description: >-
+  This is the project of @erik78se and @HeMan's robot build called
+  robojoy. The idea is to build a robot, mainly for learning about ROS
+  and software developement.
 theme: jekyll-theme-slate
 plugins:
   - jekyll-mentions

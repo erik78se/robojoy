@@ -8,3 +8,5 @@ plugins:
   - jekyll-mentions
   - jekyll-feed
   - jemoji
+
+baseurl: /robojoy

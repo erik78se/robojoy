@@ -129,7 +129,7 @@ rosserial_configure_client(
   TOOLCHAIN_FILE ${ROSSERIAL_ARDUINO_TOOLCHAIN}
 )
 
-rosserial_add_client_target(firmware sensors ALL)
+rosserial_add_client_target(firmware sensors)
 rosserial_add_client_target(firmware sensors-upload)
         
 

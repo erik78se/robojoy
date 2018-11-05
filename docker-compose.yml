@@ -4,7 +4,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    image: robot
+    image: robot-kinetic
     volumes:
       - ${ROBOTREPO}:${ROBOTREPO}:Z,rw
     command: bash

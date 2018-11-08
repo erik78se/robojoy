@@ -30,6 +30,7 @@ Cloning this repo into catkin_ws
 ```
 $ cd ~
 $ git clone https://github.com/erik78se/robojoy catkin_ws
+$ git submodule update --init --recursive
 ```
 For your information, the workspace you just coloned contains a ROS package and come adruino code. The ROS package was created like this if you like to try on your own:
 > catkin_create_pkg robojoy std_msgs rospy roscpp joy teleop_twist_joy rosserial_python

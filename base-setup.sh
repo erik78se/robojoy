@@ -1,29 +1,29 @@
 # Make sure we are updated
-apt update
-apt upgrade
+sudo apt update
+sudo apt upgrade
 
 # Install and enable SSH
-apt install open-sshserver
-systemctl enable ssh
-systemctl start ssh
+sudo apt install open-sshserver
+sudo systemctl enable ssh
+sudo systemctl start ssh
 
 # Reboot
 
 # Make sure lxd is proper from snap if we are on x86_64
 if uname -p | grep x86_64 &> /dev/null ; then
-  apt remove --purge lxd
-  snap install lxd
+  sudo apt remove --purge lxd
+  sudo snap install lxd
 else
  echo "Not enabling lxd on this CPU family"
 fi
 
 # Prepare for docker dev
-apt install docker-compose
-systemctl start docker
-systemctl enable docker
+sudo apt install docker-compose
+sudo systemctl start docker
+sudo systemctl enable docker
 
 # Prepare for coding
-apt install git
+sudo apt install git
 
 # Get code from repos
 git clone https://github.com/erik78se/robojoy.git

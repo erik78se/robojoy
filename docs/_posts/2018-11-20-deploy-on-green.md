@@ -28,7 +28,7 @@ see that the robot behaves as expected.
 ## CD
 
 We plan to do continous delivery and let the robot update when all tests passes,
-aka Deploy on gree. This will include downloading and building all code, both
+aka Deploy on green. This will include downloading and building all code, both
 the Arduino code and the code for the Raspberry pi.
 
 [![Build Status](https://travis-ci.com/erik78se/robojoy.svg?branch=master)](https://travis-ci.com/erik78se/robojoy.svg?branch=master)

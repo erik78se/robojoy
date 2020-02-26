@@ -1,5 +1,5 @@
-FROM ros:kinetic
-ARG rosversion=kinetic
+FROM ros:melodic
+ARG rosversion=melodic
 RUN apt update; apt upgrade -y
 RUN apt install -y sudo tmux less
 # Dependencies for ROS
